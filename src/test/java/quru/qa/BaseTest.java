@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class BaseTest {
     @BeforeAll
     public static void setUp() {
-        Configuration.browserSize = "1920*1080";
+        Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
         Configuration.baseUrl = "https://belavia.by/";
     }

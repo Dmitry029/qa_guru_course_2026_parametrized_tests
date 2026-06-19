@@ -13,8 +13,22 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.14.2")
     testImplementation("com.codeborne:selenide:7.16.2")
     testImplementation ("org.assertj:assertj-core:3.27.7")
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
+    tasks.named('test') {
+        useJUnitPlatform {
+            // Проверяем, передан ли системный флаг -Dtag
+            def tagToRun = System.getProperty("tag")
+
+            if (tagToRun) {
+                includeTags tagToRun
+                logger.lifecycle("===> Запуск тестов с тегом: ${tagToRun}")
+            } else {
+                logger.lifecycle("===> Тег не указан. Запуск ВСЕХ тестов.")
+            }
+        }
+    }
     useJUnitPlatform()
 }

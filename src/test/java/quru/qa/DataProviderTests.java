@@ -3,6 +3,7 @@ package quru.qa;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -33,6 +34,7 @@ public class DataProviderTests extends BaseTest {
     })
 
     @ParameterizedTest(name = "При выборе языка {0} должен быть следующий URL: {1}")
+    @Tag("smoke")
     void checkUrlTest(String language, String expectedUrl) {
         $("#lang-title").click();
         String locator = String.format("//*[@class='menu-content']//*[contains(text(), '%s')]", language);
@@ -41,6 +43,7 @@ public class DataProviderTests extends BaseTest {
     }
 
     @ParameterizedTest(name = "При выборе языка {0} должен быть следующий URL: {1}. Данные берутся из файла")
+    @Tag("regress")
     @CsvFileSource(
         resources = {"/test_data/languageAndUrls.csv"}
     )
@@ -53,6 +56,7 @@ public class DataProviderTests extends BaseTest {
 
     @MethodSource
     @ParameterizedTest(name = "При выборе языка {0} должен быть следующе пункты меню: {1}")
+    @Tag("regress")
     void checkMainMenuTextTest(String country, List<String> expectedButtons) {
         $("#lang-title").click();
         String locator = String.format("//*[@class='menu-content']//*[contains(text(), '%s')]", country);
